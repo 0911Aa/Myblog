@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/plugin/font-awesome/css/font-awesome.min.css">
+    <style>
+        .article_item {
+            border-bottom: 1px dotted #5cb85c;
+            padding: 5px 0;
+        }
+        .article-item .user_avatar{
+            border: 1px solid #d5d5d5;
+            margin-right: 5px;
+            text-align: center;
+        }
+        .article_item .user_avatar img{
+            width: 60px;
+            height: 60px;
+            padding: 1px;
+        }
+
+        .left{
+            float: left;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">芳哥技术论坛</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      {% if not article_type_id %}
+        <li class="active"><a href="/">全部</a></li>
+          {% else %}
+          <li><a href="/">全部</a></li>
+      {% endif %}
+          {% for item in type_list %}
+              {% if article_type_id == item.0 %}
+                <li class="active"><a href="/all/{{ item.0 }}.html">{{ item.1 }}</a></li>
+              {% else %}
+                <li><a href="/all/{{ item.0 }}.html">{{ item.1 }}</a></li>
+              {% endif %}
+          {% endfor %}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">注册</a></li>
+        <li><a href="#">登录</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+{#最外层,用的是bootstrap的布局容器#}
+<div class="container">
+{#    留出左右间隔#}
+    <div>
+{#    左边内容 用的是bootstrap的栅格系统，col-md-8是宽度#}
+        <div class="col-md-8">
+        <div class="article_list">
+        {% for item in article_list %}
+{#            每篇博客内容，用的是bootstrap的响应式列重置 clearfix#}
+            <div class="clearfix article_item">
+{#            博客标题#}
+                <h3><a href="#">{{ item.title }}</a></h3>
+{#                博客内容及图片#}
+                <div class="clearfix">
+                  <a href="#" class="user_avatar left">
+                      <img src="/{{ item.blog.user.avatar }}" alt=""></a>{{ item.summary }}
+                </div>
+{#                博客下面的图标#}
+                <div class="footers">
+                    <a href="#">
+{#                        用户名前面的小图标#}
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                        <span>{{ item.blog.user.nickname }}</span>
+                    </a>
+                    <span>发布于{{ item.blog.user.createtime }}</span>
+                    <a href="#">
+{#                        评论前面的小图标#}
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        <span>评论({{ item.comment_count }})</span>
+                    </a>
+                    <a href="#">
+{#                        阅读前面的小图标#}
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        <span>阅读({{ item.read_count }})</span>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{#        分页#}
+        <div class="clearfix">
+            <ul class="pagination">
+                {{ page_str }}
+            </ul>
+        </div>
+        </div>
+{#    右边内容#}
+        <div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
