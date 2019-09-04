@@ -59,7 +59,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">注册</a></li>
+        <li><a href="/register.html">注册</a></li>
         <li><a href="#">登录</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -77,7 +77,7 @@
 {#            每篇博客内容，用的是bootstrap的响应式列重置 clearfix#}
             <div class="clearfix article_item">
 {#            博客标题#}
-                <h3><a href="#">{{ item.title }}</a></h3>
+                <h4><a href="#">{{ item.title }}</a></h4>
 {#                博客内容及图片#}
                 <div class="clearfix">
                   <a href="#" class="user_avatar left">
@@ -113,7 +113,39 @@
         </div>
         </div>
 {#    右边内容#}
-        <div>
+        <div class="col-md-4">
+            <div class="panel panel-default hot-recommend">
+                <div class="panel-heading">吐血推荐</div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Consectetur adipiscing elit</li>
+                        <li>Integer molestie lorem at massa</li>
+                        <li>Facilisis in pretium nisl aliquet</li>
+                        <li>Nulla volutpat aliquam velit
+                        </li>
+                        <li>Faucibus porta lacus fringilla vel</li>
+                        <li>Aenean sit amet erat nunc</li>
+                        <li>Eget porttitor lorem</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default hot-comment">
+                <div class="panel-heading">评论最多</div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Consectetur adipiscing elit</li>
+                        <li>Integer molestie lorem at massa</li>
+                        <li>Facilisis in pretium nisl aliquet</li>
+                        <li>Nulla volutpat aliquam velit
+                        </li>
+                        <li>Faucibus porta lacus fringilla vel</li>
+                        <li>Aenean sit amet erat nunc</li>
+                        <li>Eget porttitor lorem</li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
 

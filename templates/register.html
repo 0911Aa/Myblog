@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css">
+    <style>
+        .contain{
+            width: 33%;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #f0f0f0;
+            padding: 10px 30px 50px 30px;
+            -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, .05);
+            box-shadow: 5px 10px 10px rgba(0, 0, 0, .05);
+        }
+        form li{
+            list-style-type:none;
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+<div class="contain">
+    <h3 class="form-group" style="font-size: 25px; font-weight: bold;text-align: center;">用户注册</h3>
+    <form action="/register.html" method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">用户名</label>
+            {{ obj.username }}<li>{{ obj.username.errors.0 }}</li>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">邮箱</label>
+            {{ obj.email }}<li>{{ obj.email.errors.0 }}</li>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">密码</label>
+            {{ obj.password }}<li>{{ obj.password.errors.0 }}</li>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">确认密码</label>
+{#            {{obj.non_field_errors}}里面显示的就是__all__里面的错误#}
+            {{ obj.password2 }}<li>{{ obj.password2.errors.0 }}</li>{{obj.non_field_errors}}
+        </div>
+        <div class="form-group" >
+            <label for="exampleInputEmail1">验证码</label>
+            <div class="row">
+                <div class="col-xs-7" >
+                    {{ obj.valid_code }}<li>{{ obj.valid_code.errors.0 }}</li>
+                </div>
+                <div class="col-xs-5">
+                    <img src="/create_check_code" onclick="changeimg(this)">
+                </div>
+            </div>
+        </div>
+        <p><input type="submit" value="下一步" class="btn btn-default"></p>
+    </form>
+</div>
+
+<script>
+    function changeimg(ths) {
+        ths.src = ths.src + "?"
+    }
+</script>
+
+</body>
+</html>
