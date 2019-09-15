@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from repository import models
 from django.urls import reverse
 from utils.pagination import Pagination
@@ -37,3 +37,75 @@ def index(request,*args,**kwargs):
                   }
                   )
 
+def home(request,site):
+    blog = models.Blog.objects.filter(site=site).select_related('user').first()
+    if not blog:
+        return redirect('/')
+    tag_list = models.Tag.objects.filter(blog=blog)
+    type_list = models.Category.objects.filter(blog=blog)
+    date_list = models.Article.objects.raw(
+        'select nid, count(nid) as num,strftime("%Y-%m",create_time) as ctime from repository_article group by strftime("%Y-%m",create_time)')
+
+    article_list = models.Article.objects.filter(blog=blog).order_by("nid").all()
+
+    return render(request,'home.html',{
+        'blog':blog,
+        "tag_list":tag_list,
+        "type_list":type_list,
+        "date_list":date_list,
+        "article_list":article_list
+    }
+                  )
+
+
+def filter(request,site,type,val):
+    blog = models.Blog.objects.filter(site=site).select_related('user').first()
+    if not blog:
+        return redirect('/')
+    tag_list = models.Tag.objects.filter(blog=blog)
+    type_list = models.Category.objects.filter(blog=blog)
+    date_list = models.Article.objects.raw(
+        'select nid, count(nid) as num,strftime("%Y-%m",create_time) as ctime from repository_article group by strftime("%Y-%m",create_time)')
+
+    if type == "tag":
+        article_list = models.Article.objects.filter(blog=blog,tag=val)
+    elif type == "categroy":
+        article_list = models.Article.objects.filter(blog=blog,categroy_id=val)
+
+    elif type == "data":
+        #mysql数据库用下面这个
+        # article_list = models.Article.objects.filter(blog=blog).extra(
+        # where=['date_format(create_time,"%%Y-%%m")=%s'], params=[val, ]).all()
+        #sqlite用下面这个
+        article_list = models.Article.objects.filter(blog=blog).extra(
+            where=['strftime("%%Y-%%m",create_time)=%s'], params=[val, ]).all()
+    return render(request,'home.html',{
+        'blog':blog,
+        "tag_list":tag_list,
+        "type_list":type_list,
+        "date_list":date_list,
+        "article_list":article_list
+    }
+                  )
+
+def detail(request,site,nid):
+    blog = models.Blog.objects.filter(site=site).first()
+    if not blog:
+        return redirect('/')
+    tag_list = models.Tag.objects.filter(blog_id=blog.bid)
+    type_list = models.Category.objects.filter(blog_id=blog.bid)
+    date_list = models.Article.objects.raw(
+        'select nid, count(nid) as num,strftime("%Y-%m",create_time) as ctime from repository_article group by strftime("%Y-%m",create_time)')
+
+    # article = models.Article.objects.filter(blog_id=blog.bid,nid=nid).first()
+    article_detail = models.ArticleDetail.objects.filter(article_id=nid).first()
+    comment_list = models.Comment.objects.filter(article_id=nid).all()
+    return render(request,'home_detail.html',
+                  {
+                      "blog":blog,
+                      "tag_list":tag_list,
+                      "type_list":type_list,
+                      "date_list":date_list,
+                      "article":article_detail,
+                      "comment_list":comment_list,
+                  })

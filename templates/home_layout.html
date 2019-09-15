@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="/static/plugin/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css">
+    <style>
+        *{
+          margin: 0 0;
+        }
+        .header{
+            width: 100%;
+            height: 70px;
+            background-color: #1b6d85;
+            color: white;
+        }
+        .body_menu {
+            float: left;
+            width: 25%;
+        }
+        .article{
+            float: left;
+            width: 75%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>{{ blog.title }}</h1>
+    <a href="/">首页</a>
+    <a href="/{{ blog.site }}.html">个人首页</a>
+    <a href="#">管理</a>
+
+</div>
+
+<div class="body">
+    <div class="body_menu">
+        <div class="notice">
+            <div class="notice_header">公告</div>
+            <div class="notice_content">
+                <li>昵称：{{ blog.user.nickname }}</li>
+                <li>粉丝：{{ blog.user.fans.count }}</li>
+                <li>关注：{{ blog.user.f.count }}</li>
+                <li>邮箱：{{ blog.user.email }}</li>
+            </div>
+            <div class="memo">
+                我要打篮球第二季
+            </div>
+
+        </div>
+        <div class="tags">
+            <div class="tags_header">标签</div>
+            <div class="tags_body">
+                {% for item in tag_list%}
+                    <a href="/{{ blog.site }}/tag/{{ item.nid }}.html"><li>{{ item.title }}({{ item.article_set.count }})</li></a>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="types">
+            <div class = "types_header">分类</div>
+            <div class="types_body">
+                {% for item in type_list %}
+                    <a href="/{{ blog.site }}/categroy/{{ item.nid }}.html"><li>{{ item.title }}({{ item.article_set.count }})</li></a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="dates">
+            <div class = "dates_header">时间</div>
+            <div class="dates_body">
+                {% for item in date_list %}
+                    <a href="/{{ blog.site }}/data/{{ item.ctime }}.html"><li>{{ item.ctime }}({{ item.num }})</li></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="article">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+
+</body>
+</html>

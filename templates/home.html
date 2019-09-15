@@ -1,0 +1,23 @@
+{% extends 'home_layout.html' %}
+
+{% block content %}
+{% for item in article_list %}
+    <div class="summary_item">
+        <div class="summary_title">
+            <a href="/{{ blog.site }}/{{ item.nid }}.html">{{ item.title}}</a>
+        </div>
+        <div class="summary_content">
+            {{ item.summary }}
+        </div>
+        <div class="summary_footer">
+{#                    <span>{{ row.create_time }}</span>#}
+            <span>{{ item.create_time|date:"Y-m-d H:i:s" }}</span>
+            <span>阅读({{ item.read_count }})</span>
+            <a href="#">评论({{ item.comment_count }})</a>
+            <a href="#">编辑</a>
+        </div>
+
+    </div>
+
+{% endfor %}
+{% endblock %}

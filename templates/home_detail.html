@@ -1,0 +1,79 @@
+{% extends "home_layout.html" %}
+{% block css %}
+    <link rel="stylesheet" href="/static/plugin/kindeditor/themes/default/default.css">
+{% endblock %}
+
+{% block content %}
+    <h1 class="art_title">{{ article.article.title}}</h1>
+    <div class="art_content">
+        {{ article.content|safe}}
+    </div>
+    <div class="recommend">
+        <a href="#" class="up"
+           style="margin: 5px 10px;display: inline-block;padding: 5px 15px;border: 1px solid #dddddd;text-align: center;">
+            <i class="fa fa-thumbs-o-up fa-3" aria-hidden="true" style="font-size: 25px"></i>
+
+            <div>{{ article.article.up_count }}</div>
+        </a>
+        <a href="#" class="down"
+           style="margin: 5px 30px 5px 10px;display: inline-block;padding: 5px 15px;border: 1px solid #dddddd;text-align: center;">
+            <i class="fa fa-thumbs-o-down fa-3" aria-hidden="true" style="font-size: 25px"></i>
+
+            <div>{{ article.article.down_count }}</div>
+        </a>
+    </div>
+    <div>
+        <span>{{ article.article.create_time }}</span>
+        <span>{{ blog.user.nickname }}</span>
+        <span>阅读({{ article.article.read_count }})</span>
+        <span>评论({{ article.article.comment_count }})</span>
+    </div>
+
+    <div id="AllanboltSignature">
+        <div style="border-bottom: #e0e0e0 1px dashed; border-left: #e0e0e0 1px dashed; padding: 10px; font-family: 微软雅黑; font-size: 11px; border-top: #e0e0e0 1px dashed; border-right: #e0e0e0 1px dashed; "
+             id="PSignature">
+            <div style="float:left;width:70px;">
+                <img src="/static/imgs/o_Warning.png" style="width:65px;height:65px">
+            </div>
+            <div style="float:left;padding-top:10px;">
+
+                <div style="padding: 1px">作者：<a href="http://www.cnblogs.com/pengfy/"
+                                                target="_blank">{{ blog.user.nickname }}</a></div>
+                <div style="padding: 1px">出处：<a href="http://www.cnblogs.com/pengfy/" target="_blank">http://www.cnblogs.com/{{ blog.site }}.html/</a>
+                </div>
+                <div style="padding: 1px">本文版权归作者所有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接</div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    <div class="art_comment">
+        <div class="comment_title">
+            评论列表
+        </div>
+        <div class="comment_body">
+            {% for item in comment_list %}
+
+                <div class="comment_item">
+                    <div class="reply-title clearfix">
+
+                        <div class="user_info">
+                            <span>{{ item.user.nickname }}</span>
+                            <span>{{ item.create_time }}</span>
+                        </div>
+                        <div class="reply" style="float: right;">
+                            <a href="#">回复</a>
+                        </div>
+                        <div class="reply_body">
+                            {% if item.reply %}
+                                <div class="reply-user">@{{ item.reply.user.nickname }}</div>
+                            {% endif %}
+                            <div class="content">
+                                {{ item.content }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

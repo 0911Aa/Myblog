@@ -59,8 +59,24 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/register.html">注册</a></li>
-        <li><a href="#">登录</a></li>
+        {% if request.session.user_info %}
+            <li>
+                <a href="/backend/index.html">{{ request.session.user_info.nickname }}</a>
+            </li>
+            {% if  request.session.user_info.blog__site %}
+                <li><a style="padding-left: 0;padding-right: 0;">·</a></li>
+                <li>
+                    <a href="/{{ request.session.user_info.blog__site }}.html">我的博客</a>
+                </li>
+            {% endif %}
+            <li><a style="padding-left: 0;padding-right: 0;">·</a></li>
+            <li><a href="/backend/index.html">管理</a></li>
+            <li><a style="padding-left: 0;padding-right: 0;">|</a></li>
+            <li><a href="/logout.html">退出</a></li>
+        {% else %}
+            <li><a href="/login.html">登陆</a></li>
+            <li><a href="/register.html">注册</a></li>
+        {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

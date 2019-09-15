@@ -17,6 +17,7 @@ class UserInfo(models.Model):
     fans = models.ManyToManyField(verbose_name="粉丝",
                                   to="UserInfo",
                                   through="UserFans",   #自定义第三张表时，使用字段用于指定关系表
+                                  related_name="f",
                                   through_fields= ("user","follower"),
                                   )
 
@@ -174,7 +175,7 @@ class Comment(models.Model):
     nid = models.BigIntegerField(primary_key=True)
     content = models.CharField(verbose_name="评论内容",max_length=256)
     create_time = models.DateTimeField(auto_now_add=True)
-    reply = models.ForeignKey(verbose_name="回复评论",to="self",to_field="nid",on_delete=models.CASCADE)
+    reply = models.ForeignKey(verbose_name="回复评论",to="self",null=True,blank=True,on_delete=models.CASCADE)
     article = models.ForeignKey(verbose_name="评论文章", to="Article", to_field="nid", on_delete=models.CASCADE)
     user = models.ForeignKey(verbose_name="评论用户", to="UserInfo", to_field="nid", on_delete=models.CASCADE)
     class Meta:
