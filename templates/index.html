@@ -106,7 +106,7 @@
                         <i class="fa fa-user-o" aria-hidden="true"></i>
                         <span>{{ item.blog.user.nickname }}</span>
                     </a>
-                    <span>发布于{{ item.blog.user.createtime }}</span>
+                    <span>发布于{{ item.blog.user.createtime|date:"Y-m-d H:i:s" }}</span>
                     <a href="#">
 {#                        评论前面的小图标#}
                         <i class="fa fa-comment-o" aria-hidden="true"></i>

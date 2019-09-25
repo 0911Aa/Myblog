@@ -1,0 +1,15 @@
+        img{
+    border: 0;
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        .hide{
+            display: none;
+        }
+        body{
+            margin: 0;
+        }

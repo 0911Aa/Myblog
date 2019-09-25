@@ -115,7 +115,7 @@ class Article(models.Model):
     down_count = models.IntegerField(default=0)
     create_time = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(verbose_name="所属博客",to="Blog",to_field="bid",on_delete=models.CASCADE)
-    categroy = models.ForeignKey(verbose_name="文章类型",to="Category",to_field="nid",on_delete=models.CASCADE)
+    category = models.ForeignKey(verbose_name="文章类型",to="Category",to_field="nid",on_delete=models.CASCADE)
     article_type_choices = [
         (1,"Python"),
         (2,"Linux"),

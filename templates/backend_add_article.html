@@ -1,0 +1,45 @@
+{% extends 'backend_layout.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/plugin/kindeditor/themes/default/default.css"/>
+{% endblock %}
+
+
+{% block content %}
+    <ol class="breadcrumb" style="margin-bottom: 0;">
+        <li><a href="#">文章管理</a></li>
+        <li class="active">添加</li>
+    </ol>
+
+    <div>
+        <form action="/backend/add-article.html/" method="post">
+
+            <div class="form-group">
+{#                label标签#}
+{#                FOR属性#}
+{#                功能：表示Label标签要绑定的HTML元素，你点击这个标签的时候，所绑定的元素将获取焦点。#}
+{#                用法： <Label FOR="InputBox">姓名</Label><input ID="InputBox" type="text">#}
+{#                ACCESSKEY属性：#}
+{#                功能：表示访问Label标签所绑定的元素的热键，当您按下热键，所绑定的元素将获取焦点。#}
+{#                用法： <Label FOR="InputBox" ACCESSKEY＝"N">姓名</Label><input ID="InputBox" type="text">#}
+{#                局限性：accessKey属性所设置的快捷键不能与浏览器的快捷键冲突，否则将优先激活浏览器的快捷键。#}
+
+                <label for="{{ form.title.id_for_label }}">标题 <span>{{ form.title.errors.0 }}</span></label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="id_summary">简介 <span>{{ form.summary.errors.0 }}</span></label>
+                {{ form.summary }}
+            </div>
+            <div class="form-group">
+                <label for="id_content">内容 <span>{{ form.content.errors.0 }}</span></label>
+                {{ form.content }}
+            </div>
+
+                {{ form.category_id }}
+
+        </form>
+
+    </div>
+
+
+{% endblock %}
