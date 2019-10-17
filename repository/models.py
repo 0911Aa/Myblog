@@ -67,7 +67,7 @@ class IssueInfo(models.Model):
     title = models.CharField(max_length=60,verbose_name="故障标题")
     detail = models.TextField(verbose_name="故障详情")
     user = models.ForeignKey(verbose_name="提单人",to="UserInfo",to_field="nid",on_delete=models.CASCADE,related_name="user")
-    processor = models.ForeignKey(verbose_name="责任人",to="UserInfo",to_field="nid",on_delete=models.CASCADE,related_name="processor")
+    processor = models.ForeignKey(verbose_name="责任人",to="UserInfo",to_field="nid",on_delete=models.CASCADE,related_name="processor",null=True,blank=True)
     status_type = [
         (1,"待处理"),
         (2,"处理中"),
@@ -75,7 +75,7 @@ class IssueInfo(models.Model):
     ]
     status = models.IntegerField(choices=status_type)
     create_time = models.DateTimeField(verbose_name="创建时间",auto_now_add=True)
-    endtime = models.DateTimeField(verbose_name="处理时间")
+    endtime = models.DateTimeField(verbose_name="处理时间",null=True,blank=True)
 
     class Meta:
         verbose_name_plural="故障单信息"
@@ -164,12 +164,11 @@ class UpDown(models.Model):
     up = models.BooleanField(verbose_name="是否赞")
 
     class Meta:
+        verbose_name_plural = "文章点赞关系"
         unique_together = [
             ("article","user"),
         ]
 
-    class Meta:
-        verbose_name_plural="文章点赞关系"
 
 class Comment(models.Model):
     nid = models.BigIntegerField(primary_key=True)

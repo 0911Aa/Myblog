@@ -14,6 +14,7 @@ class ArticleForm(django_forms.Form):
         widget=django_widgets.Textarea(attrs={'class': 'form-control', 'placeholder': '文章简介', 'rows': '3'})
     )
     content = django_fields.CharField(
+        # required=False,
         widget=django_widgets.Textarea(attrs={'class': 'kind-content'})
     )
     article_type_id = django_fields.IntegerField(

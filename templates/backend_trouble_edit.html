@@ -6,14 +6,14 @@
 
 {% block content %}
     <ol class="breadcrumb" style="margin-bottom: 0;">
-        <li><a href="#">文章管理</a></li>
-        <li class="active">添加</li>
+        <li><a href="#">报障管理</a></li>
+        <li class="active">编辑</li>
     </ol>
 
     <div>
-        <form action="/backend/add-article.html" method="post" novalidate>
+        <form action="/backend/trouble-edit-{{ nid }}.html" method="post" novalidate>
             {% csrf_token %}
-            <div class="form-group">
+             <div class="form-group">
 {#                label标签#}
 {#                FOR属性#}
 {#                功能：表示Label标签要绑定的HTML元素，你点击这个标签的时候，所绑定的元素将获取焦点。#}
@@ -23,32 +23,16 @@
 {#                用法： <Label FOR="InputBox" ACCESSKEY＝"N">姓名</Label><input ID="InputBox" type="text">#}
 {#                局限性：accessKey属性所设置的快捷键不能与浏览器的快捷键冲突，否则将优先激活浏览器的快捷键。#}
 
-                <label for="{{ form.title.id_for_label }}">标题 <span>{{ form.title.errors.0 }}</span></label>
+                <label for="{{ form.title.id_for_label }}">故障标题 <span>{{ form.title.errors.0 }}</span></label>
                 {{ form.title }}
             </div>
             <div class="form-group">
-                <label for="id_summary">简介 <span>{{ form.summary.errors.0 }}</span></label>
-                {{ form.summary }}
-            </div>
-            <div class="form-group" style="width: 100%">
-                <label for="id_content">内容 <span>{{ form.content.errors.0 }}</span></label>
-                {{ form.content }}
-            </div>
-            <div class="form-group">
-                <label for="id_content">文章分类 <span>{{ form.article_type_id.errors.0 }}</span></label>
-                {{ form.article_type_id }}
-            </div>
-            <div class="form-group">
-                <label for="id_content">个人分类 <span>{{ form.category_id.errors.0 }}</span></label>
-                {{ form.category_id }}
+                <label for="id_detail">故障内容 <span>{{ form.detail.errors.0 }}</span></label>
+                {{ form.detail }}
             </div>
 
             <div class="form-group">
-                <label for="id_content">个人标签 <span>{{ form.tags.errors.0 }}</span></label>
-                {{ form.tags }}
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="保 存">
+                <input type="submit" class="btn btn-primary" value="提 交">
             </div>
         </form>
 
@@ -63,7 +47,7 @@
     <script>
         var editor;
         KindEditor.ready(function (K) {
-            editor = K.create('textarea[name="content"]', {
+            editor = K.create('textarea[name="detail"]', {
                 resizeType: 1,
                 allowPreviewEmoticons: false,
                 allowImageUpload: false,

@@ -7,11 +7,11 @@
 {% block content %}
     <ol class="breadcrumb" style="margin-bottom: 0;">
         <li><a href="#">文章管理</a></li>
-        <li class="active">添加</li>
+        <li class="active">编辑</li>
     </ol>
 
     <div>
-        <form action="/backend/add-article.html" method="post" novalidate>
+        <form action="/backend/edit-article-{{ nid }}.html" method="post" novalidate>
             {% csrf_token %}
             <div class="form-group">
 {#                label标签#}
